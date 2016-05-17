@@ -7,7 +7,8 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-
+    {!! Form::open(array('url' => '/admin/add', 'method' => 'POST')) !!}
     @include('admin._form')
+    {!! Form::close() !!}
 
 @endsection

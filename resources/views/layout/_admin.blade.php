@@ -31,6 +31,9 @@
     <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+
+    <link href="/css/admin_all.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -71,19 +74,19 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> 总览</a>
+                        <a href="{{ action('AdminController@getIndex') }}"><i class="fa fa-dashboard fa-fw"></i> 总览</a>
                     </li>
                     <li>
                         <a href="forms.html"><i class="fa fa-edit fa-fw"></i> 管理奖状<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="flot.html">添加</a>
+                                <a href="{{ action('AdminController@getAdd') }}">添加</a>
                             </li>
                             <li>
-                                <a href="flot.html">编辑</a>
+                                <a href="{{ action('AdminController@getEdit') }}">编辑</a>
                             </li>
                             <li>
-                                <a href="flot.html">搜索</a>
+                                <a href="{{ action('AdminController@getSearch') }}">搜索</a>
                             </li>
                         </ul>
                     </li>
@@ -91,13 +94,13 @@
                         <a href="forms.html"><i class="fa fa-edit fa-fw"></i> 管理<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="flot.html">管理标签</a>
+                                <a href="{{ action('AdminController@getTag') }}">管理标签</a>
                             </li>
                             <li>
-                                <a href="flot.html">管理地点</a>
+                                <a href="{{ action('AdminController@getLocation') }}">管理地点</a>
                             </li>
                             <li>
-                                <a href="flot.html">管理颁发机构</a>
+                                <a href="{{ action('AdminController@getOrganization') }}">管理颁发机构</a>
                             </li>
                         </ul>
                     </li>
@@ -105,7 +108,7 @@
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 其他功能<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="flot.html">统计</a>
+                                <a href="#">统计</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -128,6 +131,18 @@
 
 @yield('footer')
 
+@if (count($errors) > 0)
+    <div class="bottom_error_message">
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>出现了错误</strong>
+            @foreach($errors->all() as $error)
+                <p class="text-danger">{{ $error }}</p>
+            @endforeach
+        </div>
+    </div>
+@endif
+
 
         <!-- jQuery -->
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -145,6 +160,8 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="/js/sb-admin-2.js"></script>
+
+<script src="/js/admin_all.js"></script>
 
 
 </body>

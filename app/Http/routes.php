@@ -16,14 +16,4 @@ Route::get('/', function () {
 });
 
 
-Route::get('/admin', function () {
-    return view('admin.index');
-});
-
-Route::get('/admin/add', function () {
-    return view('admin.add');
-});
-
-Route::get('/admin/tag', function () {
-    return view('admin.tag');
-});
+Route::controller('admin', 'AdminController');

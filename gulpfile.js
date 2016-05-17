@@ -24,7 +24,23 @@ elixir(function(mix) {
     mix.scripts([
         'jquery-2.2.3.min.js',
         'bootstrap.min.js',
-        'main.js'
+        'main.js',
     ]);
+
+    // for admin side
+
+    mix.styles([
+        'bootstrap-datetimepicker.min.css',
+        'select2.min.css',
+        'admin/main.css'
+    ], 'public/css/admin_all.css');
+
+    mix.scripts([
+        'bootstrap-datetimepicker.zh-CN.js',
+        'bootstrap-datetimepicker.min.js',
+        'select2.full.min.js',
+        'zh-CN.js',
+        'admin/main.js',
+    ], 'public/js/admin_all.js');
 
 });

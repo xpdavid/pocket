@@ -1,0 +1,12 @@
+.bottom_error_message {
+    position: fixed;
+    width: 300px;
+    height: auto;
+    bottom: 0px;
+    left: 0px;
+    z-index: 1001;
+}
+
+.bottom_error_message div {
+    margin: 0px;
+}
