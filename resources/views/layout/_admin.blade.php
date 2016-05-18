@@ -74,16 +74,20 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="{{ action('AdminController@getIndex') }}"><i class="fa fa-dashboard fa-fw"></i> 总览</a>
+                        <a href="{{ action('AdminController@getOverall') }}"><i class="fa fa-dashboard fa-fw"></i> 总览</a>
                     </li>
                     <li>
                         <a href="forms.html"><i class="fa fa-edit fa-fw"></i> 管理奖状<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{ action('AdminController@getAdd') }}">添加</a>
+                                <a href="{{ action('PocketController@create') }}">添加</a>
                             </li>
                             <li>
-                                <a href="{{ action('AdminController@getEdit') }}">编辑</a>
+                                @if(isset($item))
+                                    <a href="{{ action('PocketController@edit', $item->id) }}">编辑</a>
+                                @else
+                                    <a href="#">编辑</a>
+                                @endif
                             </li>
                             <li>
                                 <a href="{{ action('AdminController@getSearch') }}">搜索</a>

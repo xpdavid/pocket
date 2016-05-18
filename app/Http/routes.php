@@ -11,11 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('pocket.index');
-});
-
+Route::resource('admin/pocket', 'PocketController');
+Route::controller('admin/pocket-upload', 'PocketFileController');
 
 Route::controller('admin', 'AdminController');
 
 Route::controller('api', 'APIController');
+
