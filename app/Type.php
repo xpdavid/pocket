@@ -22,4 +22,5 @@ class Type extends Model
         }
         return $type;
     }
+
 }

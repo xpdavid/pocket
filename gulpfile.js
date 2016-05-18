@@ -32,14 +32,17 @@ elixir(function(mix) {
     mix.styles([
         'bootstrap-datetimepicker.min.css',
         'select2.min.css',
-        'admin/main.css'
+        'admin/dropzone.css',
+        'admin/main.css',
     ], 'public/css/admin_all.css');
 
     mix.scripts([
-        'bootstrap-datetimepicker.zh-CN.js',
         'bootstrap-datetimepicker.min.js',
+        'bootstrap-datetimepicker.zh-CN.js',
         'select2.full.min.js',
         'zh-CN.js',
+        'moment-with-locales.js',
+        'admin/dropzone.js',
         'admin/main.js',
     ], 'public/js/admin_all.js');
 

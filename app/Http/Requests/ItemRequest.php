@@ -26,10 +26,10 @@ class ItemRequest extends Request
         return [
             'name' => 'required',
             'date' => 'required',
-            'organizations' => 'required',
-            'locations' => 'required',
-            'types' => 'required',
-            'tags' => 'required'
+            'organization_list' => 'required',
+            'location_list' => 'required',
+            'type_list' => 'required',
+            'tag_list' => 'required'
         ];
     }
 
@@ -39,10 +39,10 @@ class ItemRequest extends Request
         return [
             'name.required' => '奖状名字要填写.',
             'date.required' => '获奖日期要填写.',
-            'organizations.required' => '颁发组织要填写, 如果没有, 用无代替.',
-            'locations.required' => '奖状存放地点要填写.',
-            'types.required' => '奖状形式要填写.',
-            'tags.required' => '添加一个标签吧.',
+            'organization_list.required' => '颁发组织要填写, 如果没有, 用无代替.',
+            'location_list.required' => '奖状存放地点要填写.',
+            'type_list.required' => '奖状形式要填写.',
+            'tag_list.required' => '添加一个标签吧.',
          ];
     }
 }

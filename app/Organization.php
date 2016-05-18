@@ -23,4 +23,5 @@ class Organization extends Model
         }
         return $organization;
     }
+
 }

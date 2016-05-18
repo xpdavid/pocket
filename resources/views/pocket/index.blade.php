@@ -61,7 +61,9 @@
                     <p><small class="text-muted"> 海南省教育厅</small></p>
                 </div>
                 <div class="timeline-body">
-                    <a id="single_image" href="images/sample_icon.png" class="thumbnail item-img"><img src="images/sample_icon.png" alt="" /></a>
+                    <a id="single_image" href="images/sample_icon.png" class="thumbnail item-img">
+                        <img src="images/sample_icon.png" alt="" />
+                    </a>
                 </div>
             </div>
         </li>

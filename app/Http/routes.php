@@ -17,3 +17,5 @@ Route::get('/', function () {
 
 
 Route::controller('admin', 'AdminController');
+
+Route::controller('api', 'APIController');

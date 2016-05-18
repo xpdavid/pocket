@@ -27,6 +27,6 @@ class CreateItemOrganizationTable extends Migration
      */
     public function down()
     {
-        Schema::drop('item_organizatioin');
+        Schema::drop('item_organization');
     }
 }

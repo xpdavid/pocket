@@ -34,13 +34,28 @@ class Item extends Model
     }
 
     public function setDateAttribute($date) {
-        $date = Carbon::createFromFormat('Y-m', $date);
-        $date->day = 1; // always the first day of month
+        $date = Carbon::createFromFormat('Y-m-d', $date);
         $this->attributes['date'] = $date;
     }
 
     // has many images
     public function images() {
-        return $this->hasMany('App\Image');
+        return $this->hasMany('App\Attachment');
+    }
+
+    public function getLocationListAttribute() {
+        return $this->locations->lists('name')->all();
+    }
+
+    public function getOrganizationListAttribute() {
+        return $this->organizations->lists('name')->all();
+    }
+
+    public function getTagListAttribute() {
+        return $this->tags->lists('name')->all();
+    }
+
+    public function getTypeListAttribute() {
+        return $this->types->lists('name')->all();
     }
 }

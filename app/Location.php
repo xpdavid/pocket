@@ -23,4 +23,6 @@ class Location extends Model
        }
         return $location;
     }
+
+    
 }
