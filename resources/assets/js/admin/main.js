@@ -52,8 +52,51 @@ $(function() {
             }
         });
 
+
+        // for fancybox
+        /* This is basic - uses default settings */
+
+        $("a#single_image").fancybox();
+        
+
     } catch (e) {
 
     }
 });
 
+
+function deletePocketUploadById(id) {
+    swal({
+        title: "你确定要删除这个附件?",
+        text: "请注意,删除将无法恢复!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "删吧",
+        cancelButtonText: "不, 等等",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    }, function(isConfirm) {
+        if (isConfirm) {
+            $.post('/admin/pocket/upload/delete', {
+                'id' : id
+            }, function(result) {
+                if (result.status == 1) {
+                    swal({
+                        title: 'Success',
+                        text: '已经删除',
+                        type: 'success'
+                    }, function() {
+                        location.reload();
+                    });
+                } else {
+                    swal("错误", "服务器提了一个问题.", "error");
+                }
+            }).fail(function () {
+                swal("错误", "服务器提了一个问题", "error");
+            });
+        } else {
+            swal("取消操作", "没有删除, 放心吧", "error");
+        }
+    })
+}

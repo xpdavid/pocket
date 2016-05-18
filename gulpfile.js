@@ -24,6 +24,7 @@ elixir(function(mix) {
     mix.scripts([
         'jquery-2.2.3.min.js',
         'bootstrap.min.js',
+        'sweetalert.min.js',
         'main.js',
     ]);
 
@@ -32,6 +33,7 @@ elixir(function(mix) {
     mix.styles([
         'bootstrap-datetimepicker.min.css',
         'select2.min.css',
+        'sweetalert.css',
         'admin/dropzone.css',
         'admin/main.css',
     ], 'public/css/admin_all.css');
@@ -43,6 +45,7 @@ elixir(function(mix) {
         'zh-CN.js',
         'moment-with-locales.js',
         'admin/dropzone.js',
+        'sweetalert.min.js',
         'admin/main.js',
     ], 'public/js/admin_all.js');
 

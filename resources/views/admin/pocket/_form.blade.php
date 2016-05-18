@@ -7,7 +7,6 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-12">
-                        <form role="form">
                             <div class="form-group">
                                 <label>奖项名称</label>
                                 {!! Form::text('name', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
@@ -47,8 +46,6 @@
 
                             <button type="submit" class="btn btn-default">提交</button>
                             <p class="help-block">请先保存, 然后进行第二步传照片</p>
-
-                        </form>
                     </div>
                     <!-- /.col-lg-6 (nested) -->
                 </div>

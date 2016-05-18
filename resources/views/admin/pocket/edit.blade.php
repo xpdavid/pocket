@@ -11,24 +11,39 @@
     @include('admin.pocket._form', ['data' => $data])
     {!! Form::close() !!}
 
-    {{--<div class="row">--}}
-        {{--<div class="col-lg-12">--}}
-            {{--<div class="panel panel-default">--}}
-                {{--<div class="panel-heading">--}}
-                    {{--已经添加材料--}}
-                {{--</div>--}}
-                {{--<div class="panel-body">--}}
-                    {{--<div class="row">--}}
-                        {{--<a id="single_image" href="images/sample_icon.png" class="thumbnail item-img">--}}
-                            {{--<img src="images/sample_icon.png" alt="" />--}}
-                        {{--</a>--}}
-                    {{--</div>--}}
-                    {{--<!-- /.row (nested) -->--}}
-                {{--</div>--}}
-                {{--<!-- /.panel-body -->--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    已经添加材料
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="pocket_edit_attachment">
+                                    @foreach ($item->attachments->chunk(6) as $attachments)
+                                        <div class="row">
+                                            @foreach ($attachments as $attachment)
+                                                <div class="col-md-2">
+                                                    <button type="button" class="btn btn-danger btn-xs" onclick="deletePocketUploadById({{ $attachment->id }})">
+                                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                    </button>
+                                                    <a class="thumbnail"  href="/{{ $attachment->url }}" id="single_image">
+                                                        <img src="/{{ $attachment->thumb_url }}" alt="" />
+                                                    </a>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-lg-12">

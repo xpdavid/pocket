@@ -33,10 +33,10 @@ class PocketController extends Controller
     public function create()
     {
         $data = [
-            'organizations' => Organization::lists('name', 'id'),
-            'locations' => Location::lists('name', 'id'),
-            'tags' => Tag::lists('name', 'id'),
-            'types' => Type::lists('name', 'id'),
+            'organizations' => Organization::lists('name', 'name'),
+            'locations' => Location::lists('name', 'name'),
+            'tags' => Tag::lists('name', 'name'),
+            'types' => Type::lists('name', 'name'),
         ];
         return view('admin.pocket.add', compact('data'));
     }
@@ -65,7 +65,13 @@ class PocketController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = [
+            'organizations' => Organization::lists('name', 'name'),
+            'locations' => Location::lists('name', 'name'),
+            'tags' => Tag::lists('name', 'name'),
+            'types' => Type::lists('name', 'name'),
+        ];
+        return view('admin.pocket.search', compact('data'));
     }
 
     /**

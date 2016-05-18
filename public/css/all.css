@@ -1169,5 +1169,9 @@ footer {
 
 .item-img{
     width: 55px !important;
+    float: left;
+    margin: 0px !important;
 }
+
+
 /*# sourceMappingURL=all.css.map */
