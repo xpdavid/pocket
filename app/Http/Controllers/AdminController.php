@@ -7,8 +7,9 @@ use App\Location;
 use App\Organization;
 use App\Tag;
 use App\Type;
+use App\Attachment;
 
-use App\Http\Requests\Request;
+use Illuminate\Http\Request;
 use App\Http\Requests\ItemRequest;
 
 class AdminController extends Controller
@@ -80,18 +81,18 @@ class AdminController extends Controller
 
     }
 
-    public function postUpload($id, Request $request) {
+    public function postUpload(Request $request, $id) {
         $this->validate($request, [
-            'file' => 'required|mimes:jpeg,bmp,png'
+            'file' => 'required'
         ], [
-            'file' => '图片格式为 jpeg,bmp,png, 大小无限制'
+            'file' => '必须要有文件, 大小无限制'
         ]);
         if (!$id) {
             abort(500);
         }
-        $image = Image::createImage($request->file('file'));
         $item = Item::findOrFail($id);
-        $item->images()->save($image);
+        $attachment = Attachment::createAttachment($request->file('file'));
+        $item->attachments()->save($attachment);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use File;
+use Image;
 
 class Attachment extends Model
 {
@@ -14,7 +15,7 @@ class Attachment extends Model
         'url'
     ];
 
-    protected $image_extension = [
+    public static $image_extension = [
         'png',
         'jpg',
         'jpeg'
@@ -26,8 +27,9 @@ class Attachment extends Model
     }
 
     static function createAttachment(UploadedFile $file) {
-        self::storeAttachment($file);
-
+        $attachment = self::storeAttachment($file);
+        // if it is the image then create thumbnail
+        $attachment->createThumbnail();
         return $attachment;
     }
 
@@ -40,18 +42,34 @@ class Attachment extends Model
 
         // assing the url
         $attachment = new Attachment;
-        $attachment->url = config('pocket.upload_dir') . $name;
+        $attachment->url = sprintf("%s%s", config('pocket.upload_dir'), $name);
         $attachment->extension = $file->getClientOriginalExtension();
+        $attachment->thumb_url = sprintf("%sth-%s", config('pocket.upload_dir'), $name);
+
+        return $attachment;
     }
 
-    static function createThumbnail($item) {
-        
+
+    public function createThumbnail() {
+        if (in_arrayi($this->extension, self::$image_extension)) {
+            Image::make($this->url)
+                    ->fit(200)
+                    ->save($this->thumb_url);
+        }
+    }
+
+    /**
+     * Override delete function to delete relevant file
+     * @throws \Exception
+     */
+    public function delete() {
+        File::delete([
+            'public/' . $this->thumb_url,
+            'public/' . $this->url
+        ]);
+
+        parent::delete();
     }
 
 
-
-    static function removeImage(Attachment $attachment) {
-        File::delete($attachment->url);
-        $attachment->delete();
-    }
 }

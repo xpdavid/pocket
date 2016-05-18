@@ -39,7 +39,7 @@ class Item extends Model
     }
 
     // has many images
-    public function images() {
+    public function attachments() {
         return $this->hasMany('App\Attachment');
     }
 

@@ -1,6 +1,7 @@
 $(function() {
     // for datepicker
     try {
+
         $('#date').datetimepicker({
             format : 'yyyy-mm-dd',
             startView : 4,

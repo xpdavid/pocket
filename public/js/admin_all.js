@@ -13844,6 +13844,7 @@ c(a.element).is("option")?(a.element.selected=!1,void this.$element.trigger("cha
 $(function() {
     // for datepicker
     try {
+
         $('#date').datetimepicker({
             format : 'yyyy-mm-dd',
             startView : 4,

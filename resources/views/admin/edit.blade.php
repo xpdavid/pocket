@@ -38,9 +38,10 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <form action="{{ action('AdminController@postUpload', ['id' => $item->id]) }}"
-                                  class="dropzone"
-                                  id="item_image_upload"></form>
+                        <div class="col-lg-12">
+                            {{ Form::open(['url' => action('AdminController@postUpload', ['id' => $item->id]), 'file' => true, 'class' => 'dropzone']) }}
+                            {{ Form::close() }}
+                        </div>
                     </div>
                     <!-- /.row (nested) -->
                 </div>
