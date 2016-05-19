@@ -87,7 +87,7 @@
                         <a href="{{ action('AdminController@getOverall') }}"><i class="fa fa-dashboard fa-fw"></i> 总览</a>
                     </li>
                     <li>
-                        <a href="forms.html"><i class="fa fa-edit fa-fw"></i> 管理奖状<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-edit fa-fw"></i> 管理奖状<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="{{ action('PocketController@create') }}">添加</a>
@@ -112,16 +112,46 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="forms.html"><i class="fa fa-edit fa-fw"></i> 管理<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-edit fa-fw"></i> 管理存储地点<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{ action('AdminController@getTag') }}">管理标签</a>
+                                <a href="{{ action('AdminController@getTag') }}">查看</a>
                             </li>
                             <li>
-                                <a href="{{ action('AdminController@getLocation') }}">管理地点</a>
+                                <a href="{{ action('AdminController@getLocation') }}">编辑</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-edit fa-fw"></i> 管理奖状形式<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{ action('AdminController@getTag') }}">查看</a>
                             </li>
                             <li>
-                                <a href="{{ action('AdminController@getOrganization') }}">管理颁发机构</a>
+                                <a href="{{ action('AdminController@getLocation') }}">编辑</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-edit fa-fw"></i> 管理颁奖机构<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{ action('AdminController@getTag') }}">查看</a>
+                            </li>
+                            <li>
+                                <a href="{{ action('AdminController@getLocation') }}">编辑</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-edit fa-fw"></i> 管理奖状标签<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{ action('AdminController@getTag') }}">查看</a>
+                            </li>
+                            <li>
+                                <a href="{{ action('AdminController@getLocation') }}">编辑</a>
                             </li>
                         </ul>
                     </li>

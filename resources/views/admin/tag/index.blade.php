@@ -8,7 +8,7 @@
         <!-- /.col-lg-12 -->
     </div>
 
-    @include('admin._tag')
+    @include('admin.generic_edit')
 
 
 

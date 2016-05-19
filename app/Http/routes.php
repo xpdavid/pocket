@@ -16,7 +16,10 @@ Route::post('admin/pocket/search', 'PocketController@postSearch');
 Route::resource('admin/pocket', 'PocketController');
 Route::controller('admin/pocket-upload', 'PocketFileController');
 
-Route::controller('admin', 'AdminController');
+Route::resource('admin/location', 'LocationController');
+Route::resource('admin/type', 'TypeController');
+Route::resource('admin/organization', 'OrganizationController');
+Route::resource('admin/tag', 'TagController');
 
 Route::controller('api', 'APIController');
 
