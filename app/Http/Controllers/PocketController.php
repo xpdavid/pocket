@@ -32,12 +32,7 @@ class PocketController extends Controller
      */
     public function create()
     {
-        $data = [
-            'organizations' => Organization::lists('name', 'name'),
-            'locations' => Location::lists('name', 'name'),
-            'tags' => Tag::lists('name', 'name'),
-            'types' => Type::lists('name', 'name'),
-        ];
+        $data = $this->selectData();
         return view('admin.pocket.add', compact('data'));
     }
 
@@ -65,7 +60,10 @@ class PocketController extends Controller
      */
     public function show($id)
     {
-
+        $item = Item::findOrFail($id);
+        $data = $this->selectData();
+        View::share('item', $item);
+        return view('admin.pocket.show', compact('item', 'data'));
     }
 
     /**
@@ -77,12 +75,7 @@ class PocketController extends Controller
     public function edit($id)
     {
         $item = Item::findOrFail($id);
-        $data = [
-            'organizations' => Organization::lists('name', 'name'),
-            'locations' => Location::lists('name', 'name'),
-            'tags' => Tag::lists('name', 'name'),
-            'types' => Type::lists('name', 'name'),
-        ];
+        $data = $this->selectData();
 
         View::share('item', $item);
 
@@ -124,16 +117,16 @@ class PocketController extends Controller
      * @return View
      */
     public function getSearch() {
-        $data = [
-            'organizations' => Organization::lists('name', 'name'),
-            'locations' => Location::lists('name', 'name'),
-            'tags' => Tag::lists('name', 'name'),
-            'types' => Type::lists('name', 'name'),
-        ];
+        $data = $this->selectData();
         return view('admin.pocket.search', compact('data'));
     }
 
-
+    /**
+     * Provide Search API
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function APISearch(Request $request) {
         $name = $request->get('name');
         $date1 = $request->get('date1');
@@ -152,13 +145,21 @@ class PocketController extends Controller
 
     }
 
+    /**
+     * Handle search request
+     *
+     * @param Request $request
+     * @return array
+     */
     public function postSearch(Request $request) {
         $results = $this->APISearch($request);
         $json_response = [];
         foreach ($results as $item) {
             $json_item = [];
-            $operation_button = sprintf("<a href='showPocketDetail(%d)'>更多</a>", $item->id);
-            array_push($json_item, $item->name, $item->organization_list_string, $item->date, $operation_button);
+            $operation_show = sprintf("<a href='%s'>查看</a>", route('admin.pocket.show', ['id' => $item->id]));
+            $operation_edit = sprintf("<a href='%s'>编辑</a>", route('admin.pocket.edit', ['id' => $item->id]));
+            $operations = $operation_show . " " . $operation_edit;
+            array_push($json_item, $item->name, $item->organization_list_string, $item->date, $operations);
             array_push($json_response, $json_item);
         }
         return ['data' => $json_response,
@@ -199,5 +200,20 @@ class PocketController extends Controller
             $tag = Tag::findOrCreate($_tag);
             $item->tags()->save($tag);
         }
+    }
+
+    /**
+     * Generate the select data
+     * like all the organization list etc..
+     *
+     * @return array
+     */
+    public function selectData() {
+        return [
+            'organizations' => Organization::lists('name', 'name'),
+            'locations' => Location::lists('name', 'name'),
+            'tags' => Tag::lists('name', 'name'),
+            'types' => Type::lists('name', 'name'),
+        ];
     }
 }

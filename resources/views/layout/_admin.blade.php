@@ -100,6 +100,13 @@
                                 @endif
                             </li>
                             <li>
+                                @if(isset($item))
+                                    <a href="{{ action('PocketController@show', $item->id) }}">查看</a>
+                                @else
+                                    <a href="#">查看</a>
+                                @endif
+                            </li>
+                            <li>
                                 <a href="{{ action('PocketController@getSearch') }}">搜索</a>
                             </li>
                         </ul>
