@@ -1,7 +1,17 @@
-$(function() {
-    // for datepicker
-    try {
+var search_table;
 
+$(function() {
+    try {
+        // set csrf_token
+        $.ajaxPrefilter(function(options, originalOptions, xhr) {
+            var token = $('meta[name="csrf_token"]').attr('content');
+
+            if (token) {
+                return xhr.setRequestHeader('X-XSRF-TOKEN', token);
+            }
+        });
+
+        // for datepicker
         $('#date').datetimepicker({
             format : 'yyyy-mm-dd',
             startView : 4,
@@ -52,11 +62,71 @@ $(function() {
             }
         });
 
+        /**
+         * For search page nodateoption and select date plugin
+         */
+        $('#noDateOptionSearch').click(function() {
+            if(this.checked) {
+                $('#date1').val('0000-00-00');
+                $('#date2').val('0000-00-00');
+                $('#date1').prop('readonly', true);
+                $('#date2').prop('readonly', true);
+            } else {
+                $('#date1').prop('readonly', false);
+                $('#date2').prop('readonly', false);
+                $('#date1').val(noDateOptionBackUp);
+                $('#date2').val(noDateOptionBackUp);
+            }
+        });
+
+        $('#date1').datetimepicker({
+            format : 'yyyy-mm-dd',
+            startView : 4,
+            minView : 2,
+            language : 'zh-CN',
+            autoclose : true,
+            todayBtn : true,
+
+        });
+        $('#date2').datetimepicker({
+            format : 'yyyy-mm-dd',
+            startView : 4,
+            minView : 2,
+            language : 'zh-CN',
+            autoclose : true,
+            todayBtn : true,
+
+        });
+
+
 
         // for fancybox
         /* This is basic - uses default settings */
 
         $("a#single_image").fancybox();
+
+
+        search_table = $('#search_results').DataTable( {
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                url : "/admin/pocket/search",
+                type : "POST",
+                data : function(d) {
+                    d.name = $('[name="name"]').val();
+                    d.date1 = $('[name="date1"]').val();
+                    d.date2 = $('[name="date2"]').val();
+                    d.organization_list = $('[name="organization_list[]"]').val();
+                    d.location_list = $('[name="location_list[]"]').val();
+                    d.type_list = $('[name="type_list[]"]').val();
+                    d.tag_list = $('[name="tag_list[]"]').val();
+
+                }
+            },
+            "language" : {
+                "url" : "/DataTables/Chinese.json"
+            }
+        } );
         
 
     } catch (e) {

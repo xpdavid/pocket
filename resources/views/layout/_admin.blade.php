@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf_token" content="{{ \Crypt::encrypt(csrf_token()) }}" />
     <title>{!! config('pocket.siteName') !!} 管理页面</title>
 
     <!-- Bootstrap -->
@@ -24,6 +25,9 @@
 
     <!-- Custom Fonts -->
     <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- DataTable -->
+    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css"/>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -96,7 +100,7 @@
                                 @endif
                             </li>
                             <li>
-                                <a href="{{ action('AdminController@getSearch') }}">搜索</a>
+                                <a href="{{ action('PocketController@getSearch') }}">搜索</a>
                             </li>
                         </ul>
                     </li>
@@ -171,6 +175,10 @@
 <!-- Custom Theme JavaScript -->
 <script src="/js/sb-admin-2.js"></script>
 
+<!-- DataTable JavaScript -->
+<script type="text/javascript" src="/DataTables/datatables.min.js"></script>
+
+
 <script src="/js/admin_all.js"></script>
 
     {{--for fancybox--}}
@@ -180,6 +188,7 @@
     <script type="text/javascript" src="/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
     <script type="text/javascript" src="/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
     {{--for fancybox--}}
+
 
 </body>
 </html>

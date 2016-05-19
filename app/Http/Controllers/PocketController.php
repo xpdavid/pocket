@@ -65,13 +65,7 @@ class PocketController extends Controller
      */
     public function show($id)
     {
-        $data = [
-            'organizations' => Organization::lists('name', 'name'),
-            'locations' => Location::lists('name', 'name'),
-            'tags' => Tag::lists('name', 'name'),
-            'types' => Type::lists('name', 'name'),
-        ];
-        return view('admin.pocket.search', compact('data'));
+
     }
 
     /**
@@ -122,6 +116,55 @@ class PocketController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Return the search view
+     *
+     * @return View
+     */
+    public function getSearch() {
+        $data = [
+            'organizations' => Organization::lists('name', 'name'),
+            'locations' => Location::lists('name', 'name'),
+            'tags' => Tag::lists('name', 'name'),
+            'types' => Type::lists('name', 'name'),
+        ];
+        return view('admin.pocket.search', compact('data'));
+    }
+
+
+    public function APISearch(Request $request) {
+        $name = $request->get('name');
+        $date1 = $request->get('date1');
+        $date2 = $request->get('date2');
+        $organizations = $request->get('organization_list');
+        $locations = $request->get('location_list');
+        $types = $request->get('type_list');
+        $tags = $request->get('tag_list');
+        return Item::Named($name)
+            ->dateBetween($date1, $date2)
+            ->searchList('organizations', $organizations)
+            ->searchList('locations', $locations)
+            ->searchList('types', $types)
+            ->searchList('tags', $tags)
+            ->get();
+
+    }
+
+    public function postSearch(Request $request) {
+        $results = $this->APISearch($request);
+        $json_response = [];
+        foreach ($results as $item) {
+            $json_item = [];
+            $operation_button = sprintf("<a href='showPocketDetail(%d)'>更多</a>", $item->id);
+            array_push($json_item, $item->name, $item->organization_list_string, $item->date, $operation_button);
+            array_push($json_response, $json_item);
+        }
+        return ['data' => $json_response,
+                'recordsTotal' => $results->count(),
+                'recordsFiltered' => $results->count()
+            ];
     }
 
     /**

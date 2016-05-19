@@ -7,47 +7,57 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="exampleInputName2">奖状名字</label>
-                <input type="text" class="form-control" placeholder="不填">
+                <label>奖项名称</label>
+                {!! Form::text('name', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => '无']) !!}
             </div>
-
             <div class="form-group">
-                <label for="exampleInputName2">颁奖单位</label>
-                <input type="text" class="form-control" placeholder="不填">
+                <label>颁奖单位</label>
+                {!! Form::select('organization_list[]', $data['organizations'], null, ['class' => 'form-control', 'id' => 'organizations', 'multiple']) !!}
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>开始日期</label>
+                        <input type="checkbox" value="" id="noDateOptionSearch"> 无日期
+                        {!! Form::text('date1', null, ['class' => 'form-control', 'placeholder' => '不填', 'id' => 'date1']) !!}
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label for="exampleInputName2">年份</label>
-                <input type="text" class="form-control" placeholder="不填">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>结束日期</label>
+                        {!! Form::text('date2', null, ['class' => 'form-control', 'placeholder' => '不填', 'id' => 'date2']) !!}
+                    </div>
+                </div>
             </div>
-
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="exampleInputName2">标签</label>
-                <input type="text" class="form-control" placeholder="不填">
+                <label>颁奖形式</label>
+                {!! Form::select('type_list[]', $data['types'], null , ['class' => 'form-control', 'id' => 'types', 'multiple']) !!}
             </div>
-
             <div class="form-group">
-                <label for="exampleInputName2">存放地点</label>
-                <input type="text" class="form-control" placeholder="不填">
+                <label>存放地点</label>
+                {!! Form::select('location_list[]', $data['locations'], null, ['class' => 'form-control', 'id' => 'locations', 'multiple']) !!}
             </div>
-
+            <div class="form-group">
+                <label>标签</label>
+                {!! Form::select('tag_list[]', $data['tags'], null, ['class' => 'form-control', 'id' => 'tags', 'multiple']) !!}
+            </div>
         </div>
 
     </div>
+
 
     <div class="row">
 
         <div class="col-lg-12">
-            <button type="button" class="btn btn-primary btn-lg btn-block">搜索</button>
+            <button type="button" class="btn btn-primary btn-lg btn-block" onclick="search_table.ajax.reload();">搜索(以上不填代表全部搜索)</button>
         </div>
     </div>
-
     <br>
 
     <div class="row">
@@ -58,8 +68,16 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-
-                    <!-- /.table-responsive -->
+                    <table id="search_results" class="display" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>单位</th>
+                            <th>日期</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                    </table>
                 </div>
                 <!-- /.panel-body -->
             </div>

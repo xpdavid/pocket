@@ -58,4 +58,46 @@ class Item extends Model
     public function getTypeListAttribute() {
         return $this->types->lists('name')->all();
     }
+
+    public function getOrganizationListStringAttribute() {
+        return implode(',', $this->getOrganizationListAttribute());
+    }
+
+
+    // scope
+    public function scopeNamed($query, $value) {
+        if ($value == "") {
+            return $query;
+        } else {
+            return $query->where('name', 'LIKE', '%' . $value . '%');
+        }
+    }
+
+    public function scopeDateBetween($query, $date1, $date2) {
+        if ($date1 == "" && $date2 == "") {
+            return $query;
+        } else if ($date2 == "") {
+            return $query->whereBetween('date', [$date1, '9999-12-01']);
+        } else if ($date1 == "") {
+            return $query->whereBetween('date', ['1840-12-01', $date2]);
+        } else {
+            return $query->whereBetween('date', [$date1, $date2]);
+        }
+    }
+
+
+
+    public function scopeSearchList($query, $type, $values) {
+        if ($values) {
+            foreach ($values as $value) {
+                $query->WhereHas($type, function($q) use ($value) {
+                    return $q->where('name', $value);
+                });
+            }
+        } else {
+            return $query;
+        }
+    }
+
+
 }
