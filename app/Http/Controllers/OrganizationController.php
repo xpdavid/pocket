@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Organization;
 use App\Http\Requests;
 
 class OrganizationController extends Controller
@@ -15,7 +15,22 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.organization.index');
+    }
+
+    public function postGetAll() {
+        $json_response = [];
+        $results = Organization::all();
+        foreach ($results as $organization) {
+            $json_item = [];
+            $operation_edit = sprintf("<a href='%s'>编辑</a>", route('admin.organization.edit', ['id' => $organization->id]));
+            array_push($json_item, $organization->name, $organization->items->count(), $operation_edit);
+            array_push($json_response, $json_item);
+        }
+        return ['data' => $json_response,
+            'recordsTotal' => $results->count(),
+            'recordsFiltered' => $results->count()
+        ];
     }
 
     /**

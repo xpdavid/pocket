@@ -8,7 +8,8 @@
         <!-- /.col-lg-12 -->
     </div>
 
-    @include('admin.generic_edit')
+    @include('admin.generic_index', ['table_id' => 'tag_table'])
+
 
 
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Location;
 use App\Http\Requests;
 
 class LocationController extends Controller
@@ -15,7 +15,22 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.location.index');
+    }
+
+    public function postGetAll() {
+        $json_response = [];
+        $results = Location::all();
+        foreach ($results as $location) {
+            $json_item = [];
+            $operation_edit = sprintf("<a href='%s'>编辑</a>", route('admin.location.edit', ['id' => $location->id]));
+            array_push($json_item, $location->name, $location->items->count(), $operation_edit);
+            array_push($json_response, $json_item);
+        }
+        return ['data' => $json_response,
+            'recordsTotal' => $results->count(),
+            'recordsFiltered' => $results->count()
+        ];
     }
 
     /**

@@ -127,6 +127,31 @@ $(function() {
                 "url" : "/DataTables/Chinese.json"
             }
         } );
+
+        // for admin manage tag/organization/locations/tags table
+        var all_manage = [
+            'tag',
+            'organization',
+            'location',
+            'type'
+        ];
+        $.each(all_manage, function(index, value) {
+            try{
+                $('#' + value + '_table').DataTable( {
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": {
+                        url : "/admin/" + value + "/index",
+                        type : "POST"
+                    },
+                    "language" : {
+                        "url" : "/DataTables/Chinese.json"
+                    }
+                } );
+            } catch (e) {
+
+            }
+        });
         
 
     } catch (e) {

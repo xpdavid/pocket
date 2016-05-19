@@ -8,7 +8,7 @@
         <!-- /.col-lg-12 -->
     </div>
 
-    @include('admin.generic_index')
+    @include('admin.generic_index', ['table_id' => 'location_table'])
 
 
 

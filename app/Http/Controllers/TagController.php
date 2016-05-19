@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Tag;
 use App\Http\Requests;
 
 class TagController extends Controller
@@ -15,7 +15,22 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.tag.index');
+    }
+
+    public function postGetAll() {
+        $json_response = [];
+        $results = Tag::all();
+        foreach ($results as $tag) {
+            $json_item = [];
+            $operation_edit = sprintf("<a href='%s'>编辑</a>", route('admin.tag.edit', ['id' => $tag->id]));
+            array_push($json_item, $tag->name, $tag->items->count(), $operation_edit);
+            array_push($json_response, $json_item);
+        }
+        return ['data' => $json_response,
+            'recordsTotal' => $results->count(),
+            'recordsFiltered' => $results->count()
+        ];
     }
 
     /**

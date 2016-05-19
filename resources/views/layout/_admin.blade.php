@@ -27,7 +27,7 @@
     <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- DataTable -->
-    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css"/>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -84,7 +84,7 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="{{ action('AdminController@getOverall') }}"><i class="fa fa-dashboard fa-fw"></i> 总览</a>
+                        <a href="#"><i class="fa fa-dashboard fa-fw"></i> 总览</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i> 管理奖状<span class="fa arrow"></span></a>
@@ -115,10 +115,10 @@
                         <a href="#"><i class="fa fa-edit fa-fw"></i> 管理存储地点<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{ action('AdminController@getTag') }}">查看</a>
+                                <a href="{{ route('admin.location.index') }}">查看</a>
                             </li>
                             <li>
-                                <a href="{{ action('AdminController@getLocation') }}">编辑</a>
+                                <a href="#">编辑</a>
                             </li>
                         </ul>
                     </li>
@@ -126,10 +126,10 @@
                         <a href="#"><i class="fa fa-edit fa-fw"></i> 管理奖状形式<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{ action('AdminController@getTag') }}">查看</a>
+                                <a href="{{ route('admin.type.index') }}">查看</a>
                             </li>
                             <li>
-                                <a href="{{ action('AdminController@getLocation') }}">编辑</a>
+                                <a href="#">编辑</a>
                             </li>
                         </ul>
                     </li>
@@ -137,10 +137,10 @@
                         <a href="#"><i class="fa fa-edit fa-fw"></i> 管理颁奖机构<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{ action('AdminController@getTag') }}">查看</a>
+                                <a href="{{ route('admin.organization.index') }}">查看</a>
                             </li>
                             <li>
-                                <a href="{{ action('AdminController@getLocation') }}">编辑</a>
+                                <a href="#">编辑</a>
                             </li>
                         </ul>
                     </li>
@@ -148,10 +148,10 @@
                         <a href="#"><i class="fa fa-edit fa-fw"></i> 管理奖状标签<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{ action('AdminController@getTag') }}">查看</a>
+                                <a href="{{ route('admin.tag.index') }}">查看</a>
                             </li>
                             <li>
-                                <a href="{{ action('AdminController@getLocation') }}">编辑</a>
+                                <a href="#">编辑</a>
                             </li>
                         </ul>
                     </li>
@@ -214,7 +214,6 @@
 
 <!-- DataTable JavaScript -->
 <script type="text/javascript" src="/DataTables/datatables.min.js"></script>
-
 
 <script src="/js/admin_all.js"></script>
 
