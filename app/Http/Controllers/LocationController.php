@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Location;
 use App\Http\Requests;
+use View;
 
 class LocationController extends Controller
 {
@@ -73,7 +74,9 @@ class LocationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $location = Location::findOrFail($id);
+        View::share('location', $location);
+        return view('admin.location.edit', compact('location'));
     }
 
     /**
@@ -85,7 +88,15 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required'
+        ], [
+            'name.required' => '请填写名称!'
+        ]);
+        $location = Location::findOrFail($id);
+        $location->update($request->all());
+
+        return redirect(route('admin.location.index'));
     }
 
     /**

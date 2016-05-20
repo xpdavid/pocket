@@ -73,7 +73,9 @@ class TypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $type = Type::findOrFail($id);
+        View::share('type', $type);
+        return view('admin.type.edit', compact('type'));
     }
 
     /**
@@ -85,7 +87,15 @@ class TypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required'
+        ], [
+            'name.required' => '请填写名称!'
+        ]);
+        $type = Type::findOrFail($id);
+        $type->update($request->all());
+
+        return redirect(route('admin.type.index'));
     }
 
     /**

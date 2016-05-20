@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Organization;
 use App\Http\Requests;
+use View;
 
 class OrganizationController extends Controller
 {
@@ -73,7 +74,9 @@ class OrganizationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $organization = Organization::findOrFail($id);
+        View::share('organization', $organization);
+        return view('admin.organization.edit', compact('organization'));
     }
 
     /**
@@ -85,7 +88,15 @@ class OrganizationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required'
+        ], [
+            'name.required' => '请填写名称!'
+        ]);
+        $organization = Organization::findOrFail($id);
+        $organization->update($request->all());
+
+        return redirect(route('admin.organization.index'));
     }
 
     /**

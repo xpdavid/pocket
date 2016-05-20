@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tag;
 use App\Http\Requests;
+use View;
 
 class TagController extends Controller
 {
@@ -73,7 +74,9 @@ class TagController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tag = Tag::findOrFail($id);
+        View::share('tag', $tag);
+        return view('admin.tag.edit', compact('tag'));
     }
 
     /**
@@ -85,7 +88,15 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required'
+        ], [
+            'name.required' => '请填写名称!'
+        ]);
+        $tag = Tag::findOrFail($id);
+        $tag->update($request->all());
+
+        return redirect(route('admin.tag.index'));
     }
 
     /**

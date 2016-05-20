@@ -118,7 +118,11 @@
                                 <a href="{{ route('admin.location.index') }}">查看</a>
                             </li>
                             <li>
-                                <a href="#">编辑</a>
+                                @if(isset($location))
+                                    <a href="{{ action('LocationController@edit', $location->id) }}">编辑</a>
+                                @else
+                                    <a href="#">编辑</a>
+                                @endif
                             </li>
                         </ul>
                     </li>
@@ -129,7 +133,11 @@
                                 <a href="{{ route('admin.type.index') }}">查看</a>
                             </li>
                             <li>
-                                <a href="#">编辑</a>
+                                @if(isset($type))
+                                    <a href="{{ action('TypeController@edit', $type->id) }}">编辑</a>
+                                @else
+                                    <a href="#">编辑</a>
+                                @endif
                             </li>
                         </ul>
                     </li>
@@ -140,7 +148,11 @@
                                 <a href="{{ route('admin.organization.index') }}">查看</a>
                             </li>
                             <li>
-                                <a href="#">编辑</a>
+                                @if(isset($organization))
+                                    <a href="{{ action('OrganizationController@edit', $organization->id) }}">编辑</a>
+                                @else
+                                    <a href="#">编辑</a>
+                                @endif
                             </li>
                         </ul>
                     </li>
@@ -151,7 +163,11 @@
                                 <a href="{{ route('admin.tag.index') }}">查看</a>
                             </li>
                             <li>
-                                <a href="#">编辑</a>
+                                @if(isset($tag))
+                                    <a href="{{ action('TagController@edit', $tag->id) }}">编辑</a>
+                                @else
+                                    <a href="#">编辑</a>
+                                @endif
                             </li>
                         </ul>
                     </li>
