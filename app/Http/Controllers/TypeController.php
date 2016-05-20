@@ -24,12 +24,16 @@ class TypeController extends Controller
         foreach ($results as $type) {
             $json_item = [];
             $operation_edit = sprintf("<a href='%s'>编辑</a>", route('admin.type.edit', ['id' => $type->id]));
+            $operation_delete = sprintf(" <button type=\"button\" class=\"btn btn-danger btn-xs\" onclick=\"generic_delete('type', %d)\">删除</button>",
+                $type->id
+            );
+            $operation_delete = ($type->items->count() == 0) ? $operation_delete : "";
             $query_search = sprintf("<a href='%s'>%d 条数据,点击查询</a>",
                 action('PocketController@getSearch',
                     [
                         'types' => $type->name
                     ]), $type->items->count());
-            array_push($json_item, $type->name, $query_search, $operation_edit);
+            array_push($json_item, $type->name, $query_search, $operation_edit . $operation_delete);
             array_push($json_response, $json_item);
         }
         return ['data' => $json_response,
@@ -111,6 +115,17 @@ class TypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $type = Type::findOrFail($id);
+        if ($type->items->count() > 0) {
+            return [
+                'status' => 0,
+                'info' => '此类型下依然有奖状'
+            ];
+        } else {
+            $type->delete();
+            return [
+                'status' => 1
+            ];
+        }
     }
 }

@@ -25,13 +25,17 @@ class LocationController extends Controller
         foreach ($results as $location) {
             $json_item = [];
             $operation_edit = sprintf("<a href='%s'>编辑</a>", route('admin.location.edit', ['id' => $location->id]));
+            $operation_delete = sprintf(" <button type=\"button\" class=\"btn btn-danger btn-xs\" onclick=\"generic_delete('location', %d)\">删除</button>",
+                $location->id
+                );
+            $operation_delete = ($location->items->count() == 0) ? $operation_delete : "";
             $query_search = sprintf("<a href='%s'>%d 条数据,点击查询</a>",
                 action('PocketController@getSearch',
                     [
                         'locations' => $location->name
                     ]), $location->items->count());
 
-            array_push($json_item, $location->name, $query_search, $operation_edit);
+            array_push($json_item, $location->name, $query_search, $operation_edit . $operation_delete);
             array_push($json_response, $json_item);
         }
         return ['data' => $json_response,
@@ -113,6 +117,17 @@ class LocationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $location = Location::findOrFail($id);
+        if ($location->items->count() > 0) {
+            return [
+                'status' => 0,
+                'info' => '此地点下依然有奖状'
+            ];
+        } else {
+            $location->delete();
+            return [
+                'status' => 1
+            ];
+        }
     }
 }

@@ -25,12 +25,16 @@ class OrganizationController extends Controller
         foreach ($results as $organization) {
             $json_item = [];
             $operation_edit = sprintf("<a href='%s'>编辑</a>", route('admin.organization.edit', ['id' => $organization->id]));
+            $operation_delete = sprintf(" <button type=\"button\" class=\"btn btn-danger btn-xs\" onclick=\"generic_delete('organization', %d)\">删除</button>",
+                $organization->id
+            );
+            $operation_delete = ($organization->items->count() == 0) ? $operation_delete : "";
             $query_search = sprintf("<a href='%s'>%d 条数据,点击查询</a>",
                 action('PocketController@getSearch',
                     [
                         'organizations' => $organization->name
                     ]), $organization->items->count());
-            array_push($json_item, $organization->name, $query_search, $operation_edit);
+            array_push($json_item, $organization->name, $query_search, $operation_edit . $operation_delete);
             array_push($json_response, $json_item);
         }
         return ['data' => $json_response,
@@ -112,6 +116,17 @@ class OrganizationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $organization = Organization::findOrFail($id);
+        if ($organization->items->count() > 0) {
+            return [
+                'status' => 0,
+                'info' => '此颁发组织下依然有奖状'
+            ];
+        } else {
+            $organization->delete();
+            return [
+                'status' => 1
+            ];
+        }
     }
 }

@@ -25,12 +25,16 @@ class TagController extends Controller
         foreach ($results as $tag) {
             $json_item = [];
             $operation_edit = sprintf("<a href='%s'>编辑</a>", route('admin.tag.edit', ['id' => $tag->id]));
+            $operation_delete = sprintf(" <button type=\"button\" class=\"btn btn-danger btn-xs\" onclick=\"generic_delete('tag', %d)\">删除</button>",
+                $tag->id
+            );
+            $operation_delete = ($tag->items->count() == 0) ? $operation_delete : "";
             $query_search = sprintf("<a href='%s'>%d 条数据,点击查询</a>",
                 action('PocketController@getSearch',
                     [
                         'tags' => $tag->name
                     ]), $tag->items->count());
-            array_push($json_item, $tag->name, $query_search, $operation_edit);
+            array_push($json_item, $tag->name, $query_search, $operation_edit . $operation_delete);
             array_push($json_response, $json_item);
         }
         return ['data' => $json_response,
@@ -112,6 +116,17 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tag = Tag::findOrFail($id);
+        if ($tag->items->count() > 0) {
+            return [
+                'status' => 0,
+                'info' => '此标签下依然有奖状'
+            ];
+        } else {
+            $tag->delete();
+            return [
+                'status' => 1
+            ];
+        }
     }
 }
