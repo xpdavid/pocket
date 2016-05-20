@@ -14017,9 +14017,10 @@ function deletePocketUploadById(id) {
         closeOnCancel: false
     }, function(isConfirm) {
         if (isConfirm) {
-            $.post('/admin/pocket/upload/delete', {
+            $.post('/admin/pocket-upload/delete', {
                 'id' : id
             }, function(result) {
+                console.log(result);
                 if (result.status == 1) {
                     swal({
                         title: 'Success',

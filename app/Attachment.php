@@ -64,8 +64,8 @@ class Attachment extends Model
      */
     public function delete() {
         File::delete([
-            'public/' . $this->thumb_url,
-            'public/' . $this->url
+            $this->thumb_url,
+            $this->url
         ]);
 
         parent::delete();

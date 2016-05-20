@@ -22,4 +22,19 @@ class PocketFileController extends Controller
         $attachment = Attachment::createAttachment($request->file('file'));
         $item->attachments()->save($attachment);
     }
+
+
+    public function postDelete(Request $request) {
+        if (!$request->exists('id')) {
+            return [
+                'status' => 0
+            ];
+        } else {
+            $attachment = Attachment::findOrFail($request->get('id'));
+            $attachment->delete();
+            return [
+                'status' => 1
+            ];
+        }
+    }
 }
