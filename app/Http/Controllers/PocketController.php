@@ -108,7 +108,25 @@ class PocketController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Item::findOrFail($id);
+        // first delete the attachements
+        foreach ($item->attachments as $attachment) {
+            $attachment->delete();
+        }
+
+        // clear all relationship, not delete because there are other pocket share with the tag etc.
+        $item->organizations()->detach();
+        $item->tags()->detach();
+        $item->types()->detach();
+        $item->locations()->detach();
+
+        // delete itself
+        $item->delete();
+
+        return [
+            'status' => 1
+        ];
+
     }
 
     /**
@@ -163,8 +181,11 @@ class PocketController extends Controller
         foreach ($results as $item) {
             $json_item = [];
             $operation_show = sprintf("<a href='%s'>查看</a>", route('admin.pocket.show', ['id' => $item->id]));
-            $operation_edit = sprintf("<a href='%s'>编辑</a>", route('admin.pocket.edit', ['id' => $item->id]));
-            $operations = $operation_show . " " . $operation_edit;
+            $operation_edit = sprintf(" <a href='%s'>编辑</a>", route('admin.pocket.edit', ['id' => $item->id]));
+            $operation_delete = sprintf(" <button type=\"button\" class=\"btn btn-danger btn-xs\" onclick=\"generic_delete('pocket', %d)\">删除</button>",
+                $item->id
+            );
+            $operations = $operation_show . $operation_edit . $operation_delete;
             array_push($json_item, $item->name, $item->organization_list_string, $item->date, $operations);
             array_push($json_response, $json_item);
         }

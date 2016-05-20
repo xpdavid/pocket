@@ -11,6 +11,8 @@
 |
 */
 
+Route::contorller('admin', 'AdminController');
+
 Route::get('admin/pocket/search', 'PocketController@getSearch');
 Route::post('admin/pocket/search', 'PocketController@postSearch');
 Route::resource('admin/pocket', 'PocketController');

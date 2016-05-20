@@ -19,25 +19,4 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
-    public function getLocation() {
-        return view('admin.location');
-    }
-
-    public function getOrganization() {
-        return view('admin.organization');
-    }
-
-    public function getSearch() {
-        return view('admin.search');
-    }
-
-    public function getTag() {
-        return view('admin.tag');
-    }
-
-    public function getType() {
-        return view('admin.type');
-    }
-
-
 }
