@@ -4,7 +4,7 @@
             <thead>
             <tr>
                 <th>名称</th>
-                <th>含有多少讲奖状</th>
+                <th>含有多少奖状</th>
                 <th>操作</th>
             </tr>
             </thead>

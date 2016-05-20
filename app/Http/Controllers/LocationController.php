@@ -25,7 +25,13 @@ class LocationController extends Controller
         foreach ($results as $location) {
             $json_item = [];
             $operation_edit = sprintf("<a href='%s'>编辑</a>", route('admin.location.edit', ['id' => $location->id]));
-            array_push($json_item, $location->name, $location->items->count(), $operation_edit);
+            $query_search = sprintf("<a href='%s'>%d 条数据,点击查询</a>",
+                action('PocketController@getSearch',
+                    [
+                        'locations' => $location->name
+                    ]), $location->items->count());
+
+            array_push($json_item, $location->name, $query_search, $operation_edit);
             array_push($json_response, $json_item);
         }
         return ['data' => $json_response,

@@ -116,9 +116,15 @@ class PocketController extends Controller
      *
      * @return View
      */
-    public function getSearch() {
+    public function getSearch(Request $request) {
         $data = $this->selectData();
-        return view('admin.pocket.search', compact('data'));
+        $param = [
+            'locations' => explode(',', $request->get('locations')),
+            'organizations' => explode(',', $request->get('organizations')),
+            'tags' => explode(',', $request->get('tags')),
+            'types' => explode(',', $request->get('types'))
+        ];
+        return view('admin.pocket.search', compact('data', 'param'));
     }
 
     /**

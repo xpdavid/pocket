@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
                 <label>颁奖单位</label>
-                {!! Form::select('organization_list[]', $data['organizations'], null, ['class' => 'form-control', 'id' => 'organizations', 'multiple']) !!}
+                {!! Form::select('organization_list[]', $data['organizations'], $param['organizations'], ['class' => 'form-control', 'id' => 'organizations', 'multiple']) !!}
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -37,15 +37,15 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label>颁奖形式</label>
-                {!! Form::select('type_list[]', $data['types'], null , ['class' => 'form-control', 'id' => 'types', 'multiple']) !!}
+                {!! Form::select('type_list[]', $data['types'], $param['types'] , ['class' => 'form-control', 'id' => 'types', 'multiple']) !!}
             </div>
             <div class="form-group">
                 <label>存放地点</label>
-                {!! Form::select('location_list[]', $data['locations'], null, ['class' => 'form-control', 'id' => 'locations', 'multiple']) !!}
+                {!! Form::select('location_list[]', $data['locations'], $param['locations'], ['class' => 'form-control', 'id' => 'locations', 'multiple']) !!}
             </div>
             <div class="form-group">
                 <label>标签</label>
-                {!! Form::select('tag_list[]', $data['tags'], null, ['class' => 'form-control', 'id' => 'tags', 'multiple']) !!}
+                {!! Form::select('tag_list[]', $data['tags'], $param['tags'], ['class' => 'form-control', 'id' => 'tags', 'multiple']) !!}
             </div>
         </div>
 

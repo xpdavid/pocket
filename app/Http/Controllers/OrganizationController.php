@@ -25,7 +25,12 @@ class OrganizationController extends Controller
         foreach ($results as $organization) {
             $json_item = [];
             $operation_edit = sprintf("<a href='%s'>编辑</a>", route('admin.organization.edit', ['id' => $organization->id]));
-            array_push($json_item, $organization->name, $organization->items->count(), $operation_edit);
+            $query_search = sprintf("<a href='%s'>%d 条数据,点击查询</a>",
+                action('PocketController@getSearch',
+                    [
+                        'organizations' => $organization->name
+                    ]), $organization->items->count());
+            array_push($json_item, $organization->name, $query_search, $operation_edit);
             array_push($json_response, $json_item);
         }
         return ['data' => $json_response,

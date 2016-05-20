@@ -24,7 +24,12 @@ class TypeController extends Controller
         foreach ($results as $type) {
             $json_item = [];
             $operation_edit = sprintf("<a href='%s'>编辑</a>", route('admin.type.edit', ['id' => $type->id]));
-            array_push($json_item, $type->name, $type->items->count(), $operation_edit);
+            $query_search = sprintf("<a href='%s'>%d 条数据,点击查询</a>",
+                action('PocketController@getSearch',
+                    [
+                        'types' => $type->name
+                    ]), $type->items->count());
+            array_push($json_item, $type->name, $query_search, $operation_edit);
             array_push($json_response, $json_item);
         }
         return ['data' => $json_response,
