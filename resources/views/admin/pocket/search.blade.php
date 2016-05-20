@@ -22,14 +22,14 @@
                     <div class="form-group">
                         <label>开始日期</label>
                         <input type="checkbox" value="" id="noDateOptionSearch"> 无日期
-                        {!! Form::text('date1', null, ['class' => 'form-control', 'placeholder' => '不填', 'id' => 'date1']) !!}
+                        {!! Form::text('date1', $param['date1'], ['class' => 'form-control', 'placeholder' => '不填', 'id' => 'date1']) !!}
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>结束日期</label>
-                        {!! Form::text('date2', null, ['class' => 'form-control', 'placeholder' => '不填', 'id' => 'date2']) !!}
+                        {!! Form::text('date2', $param['date2'], ['class' => 'form-control', 'placeholder' => '不填', 'id' => 'date2']) !!}
                     </div>
                 </div>
             </div>

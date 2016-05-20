@@ -140,7 +140,9 @@ class PocketController extends Controller
             'locations' => explode(',', $request->get('locations')),
             'organizations' => explode(',', $request->get('organizations')),
             'tags' => explode(',', $request->get('tags')),
-            'types' => explode(',', $request->get('types'))
+            'types' => explode(',', $request->get('types')),
+            'date1' => $request->get('date1'),
+            'date2' => $request->get('date2')
         ];
         return view('admin.pocket.search', compact('data', 'param'));
     }
