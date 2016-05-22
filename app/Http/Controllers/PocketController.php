@@ -150,24 +150,23 @@ class PocketController extends Controller
     /**
      * Provide Search API
      *
-     * @param Request $request
+     * @param array $request
      * @return mixed
      */
-    public function APISearch(Request $request) {
-        $name = $request->get('name');
-        $date1 = $request->get('date1');
-        $date2 = $request->get('date2');
-        $organizations = $request->get('organization_list');
-        $locations = $request->get('location_list');
-        $types = $request->get('type_list');
-        $tags = $request->get('tag_list');
+    public function APISearch($request) {
+        $name = array_key_exists('name', $request) ? $request['name'] : '';
+        $date1 = array_key_exists('date1', $request) ? $request['date1'] : '';
+        $date2 = array_key_exists('date2', $request) ? $request['date2'] : '';
+        $organizations = array_key_exists('organization_list', $request) ? $request['organization_list'] : '';
+        $locations = array_key_exists('location_list', $request) ? $request['location_list'] : '';
+        $types = array_key_exists('type_list', $request) ? $request['type_list'] : '';
+        $tags = array_key_exists('tag_list', $request) ? $request['tag_list'] : '';
         return Item::Named($name)
             ->dateBetween($date1, $date2)
             ->searchList('organizations', $organizations)
             ->searchList('locations', $locations)
             ->searchList('types', $types)
-            ->searchList('tags', $tags)
-            ->get();
+            ->searchList('tags', $tags);
 
     }
 
@@ -178,7 +177,7 @@ class PocketController extends Controller
      * @return array
      */
     public function postSearch(Request $request) {
-        $results = $this->APISearch($request);
+        $results = $this->APISearch($request->all())->get();
         $json_response = [];
         foreach ($results as $item) {
             $json_item = [];

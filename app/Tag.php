@@ -24,5 +24,9 @@ class Tag extends Model
         }
         return $tag;
     }
+
+    public static function findNameOrFail($name) {
+        return Type::where('name', $name)->firstOrFail();
+    }
     
 }

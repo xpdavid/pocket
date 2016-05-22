@@ -23,4 +23,8 @@ class Type extends Model
         return $type;
     }
 
+    public static function findNameOrFail($name) {
+        return Type::where('name', $name)->firstOrFail();
+    }
+
 }

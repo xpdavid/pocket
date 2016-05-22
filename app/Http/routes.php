@@ -30,5 +30,7 @@ Route::resource('admin/organization', 'OrganizationController');
 Route::post('admin/tag/index', 'TagController@postGetAll');
 Route::resource('admin/tag', 'TagController');
 
+Route::controller('admin/statistic', 'StatisticController');
+
 Route::controller('api', 'APIController');
 

@@ -24,5 +24,9 @@ class Location extends Model
         return $location;
     }
 
+    public static function findNameOrFail($name) {
+        return Location::where('name', $name)->firstOrFail();
+    }
+
     
 }

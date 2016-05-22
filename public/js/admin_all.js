@@ -14004,6 +14004,113 @@ $(function() {
 });
 
 
+try {
+
+    var chart = AmCharts.makeChart("chartdiv", {
+        "type": "serial",
+        "theme": "light",
+        "language": "zh",
+        "legend": {
+            "useGraphSettings": true
+        },
+        "showAllValueLabels": true,
+        "dataDateFormat": "YYYY-MM",
+        "mouseWheelZoomEnabled":true,
+        "dataProvider": [],
+        "synchronizeGrid":true,
+        "chartScrollbar": {
+        },
+        "valueAxes": [{
+            "id": "v1",
+            "axisAlpha": 0,
+            "position": "left",
+            "ignoreAxisWidth":true
+        }],
+        "graphs": [],
+        "chartCursor": {
+            "cursorPosition": "mouse"
+        },
+        "valueScrollbar":{
+            "oppositeAxis":false,
+            "offset":60,
+            "scrollbarHeight":10
+        },
+        "categoryField": "date",
+        "categoryAxis": {
+            "parseDates": true,
+            "axisColor": "#DADADA",
+            "minorGridEnabled": true
+        },
+        "export": {
+            "enabled": true,
+            "position": "bottom-right"
+        }
+    });
+
+    chart.addListener("dataUpdated", zoomChart);
+    zoomChart();
+
+
+    /***
+     * Ajax request to sever to get data
+     * @returns {Array}
+     */
+
+    function getData() {
+        $.post('/admin/statistic/request', {
+            'useFilter' : $('[name=useFilter]').prop('checked'),
+            'date1' : $('[name="date1"]').val(),
+            'date2' : $('[name="date2"]').val(),
+            'organization_list' : $('[name="organization_list[]"]').val(),
+            'location_list' : $('[name="location_list[]"]').val(),
+            'type_list' : $('[name="type_list[]"]').val(),
+            'tag_list' : $('[name="tag_list[]"]').val(),
+            'mainAnalysis' : $('[name="mainAnalysis"]:checked').val()
+        }, function(result) {
+            try {
+                console.log(result);
+                if (result.status == 1) {
+                    chart.graphs = result.graphSetting;
+                    sortDateInArrayKey(result.data, 'date');
+                    chart.dataProvider = result.data;
+                    chart.validateData();
+                } else {
+                    throw "Error";
+                }
+            } catch(e) {
+                swal("错误", "服务器数据返回错误.", "error");
+            }
+        }).fail(function () {
+            swal("错误", "服务器提了一个问题", "error");
+        });
+    }
+
+    function zoomChart(){
+        chart.zoomToIndexes(chart.dataProvider.length - 20, chart.dataProvider.length - 1);
+    }
+
+    function sortDateInArrayKey(array, key) {
+        array.sort(function(a, b){
+            var keyA = new Date(a[key]),
+                keyB = new Date(b[key]);
+            // Compare the 2 dates
+            if(keyA < keyB) return -1;
+            if(keyA > keyB) return 1;
+            return 0;
+        });
+    }
+
+} catch(e) {
+    console.log("没有找到图表");
+}
+
+$( "[name=useFilter]" ).click(function() {
+    $( "[name=mainAnalysisSpan]" ).toggle();
+});
+
+
+
+
 function deletePocketUploadById(id) {
     swal({
         title: "你确定要删除这个附件?",

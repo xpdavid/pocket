@@ -24,4 +24,8 @@ class Organization extends Model
         return $organization;
     }
 
+    public static function findNameOrFail($name) {
+        return Type::where('name', $name)->firstOrFail();
+    }
+
 }
