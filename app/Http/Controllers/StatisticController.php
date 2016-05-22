@@ -211,10 +211,10 @@ class StatisticController extends Controller
             $excel->setDescription('奖状详细信息列表');
 
             $excel->sheet('信息列表', function($sheet) use ($data) {
+                $sheet->setFontFamily('Microsoft YaHei');
                 $sheet->fromArray($data, null, 'A1', false, false);
                 $sheet->cells('A1:H1', function($cells) {
                     $cells->setFontSize(18);
-                    $cells->setFontWeight('bold');
                 });
                 $sheet->setWidth(array(
                     'A'     =>  8,
@@ -225,6 +225,60 @@ class StatisticController extends Controller
                     'F'     =>  30,
                     'G'     =>  30,
                     'H'     =>  30,
+                ));
+                $sheet->freezeFirstRow();
+            });
+        })->download('xls');
+    }
+
+    public function postExcelGeneric(Request $request) {
+        switch ($request->get('generic_name')) {
+            case 'location':
+                $this->genericExcelGenerate(Location::all(), "存放地点");
+                break;
+            case 'type':
+                $this->genericExcelGenerate(Type::all(), "颁奖形式");
+                break;
+            case 'tag':
+                $this->genericExcelGenerate(Tag::all(), "奖状标签");
+                break;
+            case 'organization':
+                $this->genericExcelGenerate(Organization::all(), "颁奖机构");
+                break;
+        }
+    }
+
+    public function genericExcelGenerate($list, $name) {
+        $title = "所有" . $name . "详细信息列表";
+
+        $data = [[
+            '序号' , '名称', '含有多少奖状'
+        ]];
+        $i = 1;
+        foreach ($list as $ele) {
+            array_push($data, [
+                $i,
+                $ele->name,
+                $ele->items()->count()
+            ]);
+            $i++;
+        }
+        Excel::create($title, function($excel) use ($title, $data) {
+            // Set the title
+            $excel->setTitle($title);
+            $excel->setCreator(config('pocket.department'))->setCompany(config('pocket.company'));
+            $excel->setDescription($title);
+
+            $excel->sheet('信息列表', function($sheet) use ($data) {
+                $sheet->setFontFamily('Microsoft YaHei');
+                $sheet->fromArray($data, null, 'A1', false, false);
+                $sheet->cells('A1:C1', function($cells) {
+                    $cells->setFontSize(18);
+                });
+                $sheet->setWidth(array(
+                    'A'     =>  8,
+                    'B'     =>  25,
+                    'C'     =>  25,
                 ));
                 $sheet->freezeFirstRow();
             });
