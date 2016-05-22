@@ -29,7 +29,7 @@
                                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                                     </button>
                                                     <a class="thumbnail"  href="/{{ $attachment->url }}" id="single_image">
-                                                        <img src="/{{ $attachment->thumb_url }}" alt="" />
+                                                        <img src="/{{ $attachment->thumb_url }}" alt="" onError="this.onerror=null;this.src='/images/other_file.png';" />
                                                     </a>
                                                 </div>
                                             @endforeach

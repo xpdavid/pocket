@@ -29,7 +29,7 @@ class Attachment extends Model
     static function createAttachment(UploadedFile $file) {
         $attachment = self::storeAttachment($file);
         // if it is the image then create thumbnail
-        $attachment->createThumbnail();
+        $attachment->createThumbnail($file);
         return $attachment;
     }
 
@@ -50,11 +50,25 @@ class Attachment extends Model
     }
 
 
-    public function createThumbnail() {
+    public function createThumbnail(UploadedFile $file) {
         if (in_arrayi($this->extension, self::$image_extension)) {
             Image::make($this->url)
                     ->fit(200)
                     ->save($this->thumb_url);
+        } else {
+            // else we print file name to the image
+            $name_pic = explode('.' , $this->thumb_url);
+            $this->thumb_url = $name_pic[0] . ".png";
+            $img = Image::make(config('pocket.default_image'))
+                ->text($file->getClientOriginalName(), 380, 310, function($font) {
+                    $font->file('fonts/yaihei.ttf');
+                    $font->size(50);
+                    $font->align('center');
+                    $font->valign('top');
+                    $font->angle(45);
+                })
+                ->fit(200)
+                ->save($this->thumb_url);
         }
     }
 

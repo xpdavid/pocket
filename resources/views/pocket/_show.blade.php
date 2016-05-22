@@ -24,7 +24,6 @@
                         </div>
                         <div class="form-group">
                             <label>颁奖年份/月份</label>
-                            <input type="checkbox" value="" id="noDateOption"> 无日期
                             {!! Form::text('date', $item->date, ['class' => 'form-control', 'id' => 'date', 'disabled']) !!}
                         </div>
                         <div class="form-group">
@@ -75,7 +74,7 @@
                                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                             </button>
                                             <a class="thumbnail"  href="/{{ $attachment->url }}" id="single_image">
-                                                <img src="/{{ $attachment->thumb_url }}" alt="" />
+                                                <img src="/{{ $attachment->thumb_url }}" alt="" onError="this.onerror=null;this.src='/images/other_file.png';"/>
                                             </a>
                                         </div>
                                     @endforeach
