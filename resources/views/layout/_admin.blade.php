@@ -20,9 +20,6 @@
     <!-- Custom CSS -->
     <link href="/css/sb-admin-2.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="/bower_components/morrisjs/morris.css" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -175,7 +172,10 @@
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 其他功能<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">统计</a>
+                                <a href="{{ action('StatisticController@getStatistic') }}">统计</a>
+                            </li>
+                            <li>
+                                <a href="#">生成报表(测试)</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -195,8 +195,6 @@
 
 </div>
 <!-- /#wrapper -->
-
-@yield('footer')
 
 @if (count($errors) > 0)
     <div class="bottom_error_message">
@@ -220,10 +218,11 @@
 <!-- Metis Menu Plugin JavaScript -->
 <script src="/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-<!-- Morris Charts JavaScript -->
-<script src="/bower_components/raphael/raphael-min.js"></script>
-<script src="/bower_components/morrisjs/morris.min.js"></script>
-<script src="/js/morris-data.js"></script>
+<!-- amcharts Charts JavaScript -->
+    <script src="/amcharts/amcharts.js"></script>
+    <script src="/amcharts/serial.js"></script>
+    <script src="/amcharts/themes/light.js"></script>
+    <script src="/amcharts/lang/zh.js"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="/js/sb-admin-2.js"></script>
@@ -241,6 +240,6 @@
     <script type="text/javascript" src="/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
     {{--for fancybox--}}
 
-
+@yield('footer')
 </body>
 </html>
