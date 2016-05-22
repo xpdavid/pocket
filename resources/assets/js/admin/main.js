@@ -107,8 +107,6 @@ $(function() {
 
 
         search_table = $('#search_results').DataTable( {
-            "processing": true,
-            "serverSide": true,
             "ajax": {
                 url : "/admin/pocket/search",
                 type : "POST",
