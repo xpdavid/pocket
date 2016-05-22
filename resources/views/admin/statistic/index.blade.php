@@ -64,7 +64,7 @@
             <div class="panel-body">
                 <p>您可以: </p>
                 <p>1. {{ Form::checkbox('useFilter', null, true) }} 使用筛选 (显示全部奖状统计数据)</p>
-                <p>2. 不使用筛选, 分析标签对比.</p>
+                <p>2. 不使用筛选, 分析标签对比. (如果不在分析标签选中的, 视为筛选条件)</p>
             </div>
         </div>
     </div>

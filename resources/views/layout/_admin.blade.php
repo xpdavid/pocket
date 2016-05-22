@@ -93,14 +93,14 @@
                                 @if(isset($item))
                                     <a href="{{ action('PocketController@edit', $item->id) }}">编辑</a>
                                 @else
-                                    <a href="#">编辑</a>
+                                    <a href="{{ action('PocketController@getSearch') }}">编辑</a>
                                 @endif
                             </li>
                             <li>
                                 @if(isset($item))
                                     <a href="{{ action('PocketController@show', $item->id) }}">查看</a>
                                 @else
-                                    <a href="#">查看</a>
+                                    <a href="{{ action('PocketController@getSearch') }}">查看</a>
                                 @endif
                             </li>
                             <li>
@@ -118,7 +118,7 @@
                                 @if(isset($location))
                                     <a href="{{ action('LocationController@edit', $location->id) }}">编辑</a>
                                 @else
-                                    <a href="#">编辑</a>
+                                    <a href="{{ route('admin.location.index') }}">编辑</a>
                                 @endif
                             </li>
                         </ul>
@@ -133,7 +133,7 @@
                                 @if(isset($type))
                                     <a href="{{ action('TypeController@edit', $type->id) }}">编辑</a>
                                 @else
-                                    <a href="#">编辑</a>
+                                    <a href="{{ route('admin.type.index') }}">编辑</a>
                                 @endif
                             </li>
                         </ul>
@@ -148,7 +148,7 @@
                                 @if(isset($organization))
                                     <a href="{{ action('OrganizationController@edit', $organization->id) }}">编辑</a>
                                 @else
-                                    <a href="#">编辑</a>
+                                    <a href="{{ route('admin.organization.index') }}">编辑</a>
                                 @endif
                             </li>
                         </ul>
@@ -163,7 +163,7 @@
                                 @if(isset($tag))
                                     <a href="{{ action('TagController@edit', $tag->id) }}">编辑</a>
                                 @else
-                                    <a href="#">编辑</a>
+                                    <a href="{{ route('admin.tag.index') }}">编辑</a>
                                 @endif
                             </li>
                         </ul>
@@ -175,7 +175,7 @@
                                 <a href="{{ action('StatisticController@getStatistic') }}">统计</a>
                             </li>
                             <li>
-                                <a href="{{ action('PocketController@getSearch') }}">生成报表(测试)</a>
+                                <a href="{{ action('PocketController@getSearch') }}">生成报表</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
