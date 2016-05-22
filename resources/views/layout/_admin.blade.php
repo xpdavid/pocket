@@ -175,7 +175,7 @@
                                 <a href="{{ action('StatisticController@getStatistic') }}">统计</a>
                             </li>
                             <li>
-                                <a href="#">生成报表(测试)</a>
+                                <a href="{{ action('PocketController@getSearch') }}">生成报表(测试)</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->

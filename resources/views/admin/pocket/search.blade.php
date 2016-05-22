@@ -7,6 +7,7 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
+    {!! Form::open(array('url' => action('StatisticController@postExcel'), 'method' => 'POST')) !!}
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -55,9 +56,11 @@
     <div class="row">
 
         <div class="col-lg-12">
-            <button type="button" class="btn btn-primary btn-lg btn-block" onclick="search_table.ajax.reload();">搜索(以上不填代表全部搜索)</button>
+            <a href="#" class="btn btn-primary btn-lg" onclick="search_table.ajax.reload();">搜索(以上不填代表全部搜索)</a>
+            <button type="submit" class="btn btn-info btn-lg">生成Excel文件</button>
         </div>
     </div>
+    {{ Form::close() }}
     <br>
 
     <div class="row">

@@ -63,6 +63,22 @@ class Item extends Model
         return implode(',', $this->getOrganizationListAttribute());
     }
 
+    public function getLocationListStringAttribute() {
+        return implode(',', $this->getLocationListAttribute());
+    }
+
+    public function getTagListStringAttribute() {
+        return implode(',', $this->getTagListAttribute());
+    }
+
+    public function getTypeListStringAttribute() {
+        return implode(',', $this->getTypeListAttribute());
+    }
+
+    public function getDateOnlyYearMonthAttribute() {
+        return Carbon::parse($this->date)->format('Y-m');
+    }
+
 
     // scope
     public function scopeNamed($query, $value) {

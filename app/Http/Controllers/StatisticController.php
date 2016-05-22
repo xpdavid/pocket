@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App;
+use App\Item;
 use App\Location;
 use App\Organization;
 use App\Tag;
 use App\Type;
 use Carbon\Carbon;
+use Excel;
 
 class StatisticController extends Controller
 {
@@ -163,6 +165,70 @@ class StatisticController extends Controller
             }
         }
         return $originData;
+    }
+
+
+    /**
+     * For generate_excel controller
+     */
+
+
+    public function postExcel(Request $request) {
+        $title = "所有奖状详细信息列表";
+        if($request->get('date1') == "0000-00-00" && $request->get('date2') == "0000-00-00") {
+            $title = "无日期 - " . $title;
+        } else if ($request->get('date1') == "0000-00-00"){
+            $title = "至" . $request->get('date2') . " " . $title;
+        } else if ($request->get('date2') == "0000-00-00"){
+            $title = "从" . $request->get('date1') . " " . $title;
+        }
+
+        $filter = App::make('App\Http\Controllers\PocketController')->APISearch($request->all())->orderBy('date');
+        if($filter->count() != Item::all()->count()) {
+            $title = $title . ' - 经过筛选';
+        }
+        $data = [[
+            '序号' , '日期', '奖项名称', '颁奖单位', '颁奖形式', '存放地点', '标签', '备注'
+        ]];
+        $i = 1;
+        foreach ($filter->get() as $item) {
+            array_push($data, [
+                $i,
+                $item->date_only_year_month,
+                $item->name,
+                $item->organization_list_string,
+                $item->type_list_string,
+                $item->location_list_string,
+                $item->tag_list_string,
+                $item->note
+            ]);
+            $i++;
+        }
+        Excel::create($title, function($excel) use ($title, $data) {
+            // Set the title
+            $excel->setTitle($title);
+            $excel->setCreator(config('pocket.department'))->setCompany(config('pocket.company'));
+            $excel->setDescription('奖状详细信息列表');
+
+            $excel->sheet('信息列表', function($sheet) use ($data) {
+                $sheet->fromArray($data, null, 'A1', false, false);
+                $sheet->cells('A1:H1', function($cells) {
+                    $cells->setFontSize(18);
+                    $cells->setFontWeight('bold');
+                });
+                $sheet->setWidth(array(
+                    'A'     =>  8,
+                    'B'     =>  10,
+                    'C'     =>  40,
+                    'D'     =>  30,
+                    'E'     =>  30,
+                    'F'     =>  30,
+                    'G'     =>  30,
+                    'H'     =>  30,
+                ));
+                $sheet->freezeFirstRow();
+            });
+        })->download('xls');
     }
 
 }
