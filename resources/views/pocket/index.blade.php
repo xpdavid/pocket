@@ -4,7 +4,19 @@
 
 <div class="container">
     <div class="page-header">
-        <h1 id="timeline">学校大事件</h1>
+        <h1 id="timeline">学校大事件 </h1>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                年份
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="{{ url('/') }}">全部</a></li>
+                @foreach($data['years'] as $year)
+                    <li><a href="?year={{ $year }}">{{ $year }}</a></li>
+                @endforeach
+            </ul>
+        </div>
     </div>
     <ul class="timeline">
         @foreach($items as $item)
