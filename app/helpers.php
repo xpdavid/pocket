@@ -53,3 +53,12 @@ function minInStringArray($array) {
 function rand_hex_color() {
     return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
 }
+
+/**
+ * Generate random value in array
+ */
+function random_value($array, $default=null)
+{
+    $k = mt_rand(0, count($array) - 1);
+    return isset($array[$k]) ? $array[$k]: $default;
+}

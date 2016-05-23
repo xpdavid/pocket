@@ -11,6 +11,8 @@
 |
 */
 
+Route::controller('/', 'PublicPocketController');
+
 Route::get('admin/overall', 'AdminController@Overall');
 
 Route::get('admin/pocket/search', 'PocketController@getSearch');
