@@ -20,25 +20,27 @@
     </div>
     <ul class="timeline">
         @foreach($items as $item)
-            <li class="{!! random_value($data['orientations']) !!}">
-                <div class="timeline-badge {!! random_value($data['color_classes'], 1) !!}"><span class="glyphicon glyphicon-{!! random_value($data['icons'], 1) !!}" aria-hidden="true"></span></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">{{ $item->name }}</h4>
-                        <p><small class="text-muted"> {{ $item->organization_list_string }}</small></p>
-                    </div>
-                    <div class="timeline-body">
-                        @foreach($item->attachments as $attachment)
-                            @if(in_arrayi($attachment->extension, App\Attachment::$image_extension))
-                                <a id="single_image" href="{{ $attachment->url }}" class="thumbnail item-img">
-                                    <img src="{{ $attachment->thumb_url }}" alt="" />
-                                </a>
-                            @endif
-                        @endforeach
+            @if($item->published)
+                <li class="{!! random_value($data['orientations']) !!}">
+                    <div class="timeline-badge {!! random_value($data['color_classes'], 1) !!}"><span class="glyphicon glyphicon-{!! random_value($data['icons'], 1) !!}" aria-hidden="true"></span></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">{{ $item->name }}</h4>
+                            <p><small class="text-muted"> {{ $item->organization_list_string }}</small></p>
+                        </div>
+                        <div class="timeline-body">
+                            @foreach($item->attachments as $attachment)
+                                @if(in_arrayi($attachment->extension, App\Attachment::$image_extension))
+                                    <a id="single_image" href="{{ $attachment->url }}" class="thumbnail item-img">
+                                        <img src="{{ $attachment->thumb_url }}" alt="" />
+                                    </a>
+                                @endif
+                            @endforeach
 
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            @endif
         @endforeach
     </ul>
 </div>

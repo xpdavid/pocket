@@ -11,6 +11,7 @@ class Item extends Model
         'name',
         'note',
         'date',
+        'published'
     ];
 
     // a honor is issued by organizations

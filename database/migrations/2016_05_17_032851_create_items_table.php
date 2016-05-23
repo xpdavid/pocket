@@ -17,6 +17,7 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->date('date');
             $table->text('note')->nullable();
+            $table->boolean('published');
             $table->timestamps();
         });
     }

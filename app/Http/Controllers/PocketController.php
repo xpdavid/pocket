@@ -101,8 +101,10 @@ class PocketController extends Controller
      */
     public function update(ItemRequest $request, $id)
     {
+        $data = $request->all();
+        $data['published'] = $request->input('published', false);
         $item = Item::findOrFail($id);
-        $item->update($request->all());
+        $item->update($data);
 
         $this->syncTags($item, $request);
 
@@ -197,7 +199,12 @@ class PocketController extends Controller
                 $item->id
             );
             $operations = $operation_show . $operation_edit . $operation_delete;
-            array_push($json_item, $item->name, $item->organization_list_string, $item->date, $operations);
+            if($item->published) {
+                $name = "<span style='color:#5bc0de'>" . $item->name . "</span>";
+            } else {
+                $name = $item->name;
+            }
+            array_push($json_item, $name, $item->organization_list_string, $item->date, $operations);
             array_push($json_response, $json_item);
         }
         return ['data' => $json_response,

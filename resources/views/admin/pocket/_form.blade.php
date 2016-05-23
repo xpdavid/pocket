@@ -43,6 +43,10 @@
                                 {!! Form::textarea('note', null, ['class' => 'form-control', 'rows' => '3']) !!}
                                 <p class="help-block">比如说: 联系方式, 是否损坏等.</p>
                             </div>
+                            <div class="form-group">
+                                <label>是否对外显示</label>
+                                {!! Form::checkbox('published', true) !!}
+                            </div>
 
                             <button type="submit" class="btn btn-default">提交</button>
                             <p class="help-block">请先保存, 然后进行第二步传照片</p>

@@ -55,7 +55,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">{!! config('pocket.siteName') !!} 管理页面</a>
+            <a class="navbar-brand" href="/admin/">{!! config('pocket.siteName') !!} 管理页面</a>
         </div>
         <!-- /.navbar-header -->
 
