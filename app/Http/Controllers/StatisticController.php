@@ -16,6 +16,16 @@ use Excel;
 
 class StatisticController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public static $bullet_in_charts = [
         "round", "square", "triangleUp", "triangleDown", "bubble"
     ];

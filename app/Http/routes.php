@@ -10,10 +10,11 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::auth();
 
-Route::controller('/', 'PublicPocketController');
 
-Route::get('admin/overall', 'AdminController@Overall');
+
+Route::get('admin/', 'AdminController@Overall');
 
 Route::get('admin/pocket/search', 'PocketController@getSearch');
 Route::post('admin/pocket/search', 'PocketController@postSearch');
@@ -35,4 +36,7 @@ Route::resource('admin/tag', 'TagController');
 Route::controller('admin/statistic', 'StatisticController');
 
 Route::controller('api', 'APIController');
+
+Route::controller('/', 'PublicPocketController');
+
 

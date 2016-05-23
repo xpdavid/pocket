@@ -46,6 +46,14 @@ footer {
     height: 80px;
 }
 
+.admin {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 5px;
+    z-index: 101;
+}
+
 .item-img{
     width: 55px !important;
     float: left;

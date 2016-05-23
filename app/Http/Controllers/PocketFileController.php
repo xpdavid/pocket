@@ -9,6 +9,16 @@ use App\Attachment;
 
 class PocketFileController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function postUpload(Request $request, $id) {
         $this->validate($request, [
             'file' => 'required'

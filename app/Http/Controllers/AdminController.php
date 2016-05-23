@@ -14,6 +14,16 @@ use App\Http\Requests;
 
 class AdminController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function Overall() {
         $current_year = Carbon::now()->year;
         $current_year_begin =  Carbon::create($current_year, 1, 1)->toDateString();
