@@ -204,7 +204,7 @@ class PocketController extends Controller
             } else {
                 $name = $item->name;
             }
-            array_push($json_item, $name, $item->organization_list_string, $item->date, $operations);
+            array_push($json_item, null, $name, $item->organization_list_string, $item->date, $operations);
             array_push($json_response, $json_item);
         }
         return ['data' => $json_response,

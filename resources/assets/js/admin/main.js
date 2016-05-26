@@ -3,11 +3,9 @@ var search_table;
 $(function() {
     try {
         // set csrf_token
-        $.ajaxPrefilter(function(options, originalOptions, xhr) {
-            var token = $('meta[name="csrf_token"]').attr('content');
-
-            if (token) {
-                return xhr.setRequestHeader('X-XSRF-TOKEN', token);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
@@ -123,9 +121,20 @@ $(function() {
             },
             "language" : {
                 "url" : "/DataTables/Chinese.json"
-            }
+            },
+            "columnDefs": [ {
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+            } ],
+            "order": [[ 3, 'asc' ]]
         } );
 
+        search_table.on( 'order.dt search.dt', function () {
+            search_table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+        } ).draw();
         // for admin manage tag/organization/locations/tags table
         var all_manage = [
             'tag',

@@ -74,6 +74,7 @@
                     <table id="search_results" class="display" cellspacing="0" width="100%">
                         <thead>
                         <tr>
+                            <th>编号</th>
                             <th>名称</th>
                             <th>单位</th>
                             <th>日期</th>
